@@ -7,3 +7,47 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+
+  email     String    @unique
+  name      String?
+  password  String
+  role      Role
+
+  products  Product[] // Relation to Product model
+}
+
+model Product {
+  id          String   @id @default(uuid())
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  name        String
+  description String?
+  price       Float
+  currency    Currency
+  category    Category
+  userId      String
+
+  user        User     @relation(fields: [userId], references: [id]) // Relation to User model
+}
+
+enum Currency {
+  USD
+  EUR
+}
+
+enum Category {
+  ELECTRONICS
+  FASHION
+  FOOD
+}
+
+enum Role {
+  ADMIN
+  USER
+}
