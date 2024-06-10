@@ -1,8 +1,34 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { Logger } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import * as CookieParser from 'cookie-parser';
 
-async function bootstrap() {
+async function start() {
+  const logger = new Logger('NestApplication');
+
   const app = await NestFactory.create(AppModule);
-  await app.listen(3000);
+  const config = app.get(ConfigService);
+
+  const options = new DocumentBuilder()
+    .setTitle('')
+    .setDescription('Invoice IDP backend')
+    .setVersion('1.0.0')
+    .build();
+
+  const document = SwaggerModule.createDocument(app, options);
+  SwaggerModule.setup('/api/docs', app, document);
+
+  app.use(CookieParser());
+  app.setGlobalPrefix('api/');
+  app.enableCors();
+
+  const port = config.get('PORT');
+
+  await app.listen(port, () =>
+    logger.log(`Nest application successfully started on port ${port}.`),
+  );
 }
-bootstrap();
+
+start();
