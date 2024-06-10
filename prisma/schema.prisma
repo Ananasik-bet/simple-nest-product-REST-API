@@ -19,6 +19,8 @@ model User {
   role      Role
 
   products  Product[] // Relation to Product model
+
+  @@map("user")
 }
 
 model Product {
@@ -31,9 +33,11 @@ model Product {
   price       Float
   currency    Currency
   category    Category
-  userId      String
 
   user        User     @relation(fields: [userId], references: [id]) // Relation to User model
+  userId      String   @map("user_id")
+
+  @@map("product")
 }
 
 enum Currency {
