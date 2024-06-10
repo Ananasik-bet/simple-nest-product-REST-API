@@ -1,0 +1,9 @@
+generator client {
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x", "darwin"]
+  provider      = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
