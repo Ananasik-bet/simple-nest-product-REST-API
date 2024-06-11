@@ -93,10 +93,9 @@ export class AuthService {
       httpOnly: true,
       domain: this.configService.get('DOMAIN'),
       expires: expiresIn,
-      // true if production
-      secure: false,
-      // lax if production
-      sameSite: 'none',
+      secure: this.configService.get('PRODUCTION') === 'true',
+      sameSite:
+        this.configService.get('PRODUCTION') === 'true' ? 'lax' : 'none',
     });
   }
 
@@ -105,10 +104,9 @@ export class AuthService {
       httpOnly: true,
       domain: this.configService.get('DOMAIN'),
       expires: new Date(0),
-      // true if production
-      secure: false,
-      // lax if production
-      sameSite: 'none',
+      secure: this.configService.get('PRODUCTION') === 'true',
+      sameSite:
+        this.configService.get('PRODUCTION') === 'true' ? 'lax' : 'none',
     });
   }
 }

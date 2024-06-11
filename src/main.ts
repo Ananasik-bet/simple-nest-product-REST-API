@@ -12,8 +12,8 @@ async function start() {
   const config = app.get(ConfigService);
 
   const options = new DocumentBuilder()
-    .setTitle('')
-    .setDescription('Invoice IDP backend')
+    .setTitle('Test API')
+    .setDescription('A simple nest REST API for products with JWT auth.')
     .setVersion('1.0.0')
     .build();
 
