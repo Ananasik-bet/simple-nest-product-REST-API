@@ -16,19 +16,54 @@ export class ProductsService {
     });
   }
 
-  create(dto: CreateProductDto) {
+  create(userId: string, dto: CreateProductDto) {
+    const data = {
+      ...dto,
+      userId,
+    };
+
     return this.prisma.product.create({
-      data: dto,
+      data,
     });
   }
 
   getList(options: GetListQueryDto) {
+    const extraSearch: any = {};
+
+    if (options.name) {
+      extraSearch.name = {
+        contains: options.name,
+        mode: 'insensitive',
+      };
+    }
+
+    if (options.price) {
+      extraSearch.price = options.price;
+    }
+
+    if (options.currency) {
+      extraSearch.currency = options.currency;
+    }
+
+    if (options.category) {
+      extraSearch.category = options.category;
+    }
+
     return this.prisma.product.findMany({
+      where: { ...extraSearch },
       orderBy: {
         createdAt: 'desc',
       },
       take: options.limit,
       skip: (options.page - 1) * options.limit,
+      include: {
+        user: {
+          select: {
+            name: true,
+            email: true,
+          },
+        },
+      },
     });
   }
 
