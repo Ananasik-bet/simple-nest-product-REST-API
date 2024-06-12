@@ -17,6 +17,10 @@ async function start() {
     .setDescription('A simple nest REST API for products with JWT auth.')
     .setVersion('1.0.0')
     .addServer(`http://localhost:${port}/api/`, 'Local environment')
+    .addServer(
+      `https://simple-nest-product-rest-api.onrender.com/api/`,
+      'Production environment',
+    )
     .addBearerAuth()
     .build();
 

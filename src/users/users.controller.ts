@@ -13,7 +13,8 @@ import {
   BadRequestException,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { UserDto, UserDtoSwagger } from './dto/user.dto';
+import { UserDto } from './dto/user.dto';
+import { UserDtoSwagger } from './dto/user.swagger.dto';
 import { AuthDto } from 'src/auth/dto/auth.dto';
 import { CurrentUser } from 'src/auth/decorators/user.decorator';
 import { Auth } from 'src/auth/decorators/auth.decorator';

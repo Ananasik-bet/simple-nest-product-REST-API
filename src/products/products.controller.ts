@@ -10,16 +10,9 @@ import {
   BadRequestException,
   ForbiddenException,
   Query,
-  UnauthorizedException,
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { Auth } from 'src/auth/decorators/auth.decorator';
-import {
-  CreateProductDto,
-  GetListQueryDto,
-  ProductSwaggerDto,
-  UpdateProductDto,
-} from './dto/product.dto';
 import { CurrentUser } from 'src/auth/decorators/user.decorator';
 import { Role } from '@prisma/client';
 import {
@@ -29,6 +22,10 @@ import {
   ApiQuery,
   ApiBearerAuth,
 } from '@nestjs/swagger';
+import { CreateProductDto } from './dto/create-product.dto';
+import { GetListQueryDto } from './dto/product-query.dto';
+import { ProductSwaggerDto } from './dto/product.swagger.dto';
+import { UpdateProductDto } from './dto/update-product.dto';
 
 @ApiTags('products')
 @Controller('products')

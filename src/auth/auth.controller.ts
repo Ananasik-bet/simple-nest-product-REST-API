@@ -3,8 +3,6 @@ import {
   ApiOperation,
   ApiResponse,
   ApiBody,
-  ApiCookieAuth,
-  ApiConsumes,
   ApiHeader,
 } from '@nestjs/swagger';
 import {
@@ -19,8 +17,9 @@ import {
   Body,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { AuthDto, AuthSwaggerDto } from './dto/auth.dto';
+import { AuthDto } from './dto/auth.dto';
 import { Request, Response } from 'express';
+import { AuthSwaggerDto } from './dto/auth.swagger.dto';
 
 @ApiTags('auth')
 @Controller('auth')
