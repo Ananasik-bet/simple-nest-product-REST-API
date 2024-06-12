@@ -43,7 +43,7 @@ Task requirements can be found [here](requirenments.txt)
 - [Local Environment](http://localhost:3000/api/docs)
 - [Production](https://simple-nest-product-rest-api.onrender.com/api/docs)
 
-## 🚀 Features
+## ✨ Features
 
 - 📱 **NestJS**: Latest version
 - 🎉 **TypeScript**: Type checking
@@ -84,6 +84,14 @@ npm run test
 ```
 
 </details>
+
+## 🚀  You can try give requests with postman collection
+
+Postman collection [here](postman_collection.json)
+
+#### Notice
+
+Make sure that server are running locally.
 
 ## Summary
 

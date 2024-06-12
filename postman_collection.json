@@ -1,0 +1,301 @@
+{
+	"info": {
+		"_postman_id": "e3805fc4-7c0f-4cde-8e87-540b66a6b55b",
+		"name": "Nest Test API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "23629130"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"admin@gmail.com\",\n    \"password\": \"password\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{backendURL}}/api/auth/login"
+			},
+			"response": []
+		},
+		{
+			"name": "Get all users",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{token}}"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "{{backendURL}}/api/users/"
+			},
+			"response": []
+		},
+		{
+			"name": "Get products",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{token}}"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{backendURL}}/api/products?currency=USD",
+					"host": [
+						"{{backendURL}}"
+					],
+					"path": [
+						"api",
+						"products"
+					],
+					"query": [
+						{
+							"key": "currency",
+							"value": "USD"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Product",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{token}}"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Product 1\",\n  \"description\": \"Desc for product 1\",\n  \"price\": 1.01,\n  \"currency\": \"USD\",\n  \"category\": \"ELECTRONICS\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{backendURL}}/api/products/"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete product",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.sendRequest({",
+							"    url: 'http://localhost:3000/api/auth/login',",
+							"    method: 'POST',",
+							"    header: {",
+							"        'Content-Type': 'application/json'",
+							"    },",
+							"    body: {",
+							"        mode: 'raw',",
+							"        raw: JSON.stringify({",
+							"            \"email\": \"admin@gmail.com\",",
+							"            \"password\": \"password\"",
+							"        })",
+							"    }",
+							"}, (err, res) => {",
+							"    if (err) {",
+							"        console.error(err);",
+							"    } else {",
+							"        const responseBody = JSON.parse(res.body);",
+							"        if (responseBody.accessToken) {",
+							"            pm.environment.set(\"access_token\", responseBody.accessToken);",
+							"            console.log(\"Access token set:\", responseBody.accessToken);",
+							"        } else {",
+							"            console.error(\"Access token not found in response body:\", responseBody);",
+							"        }",
+							"    }",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{token}}"
+					}
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": "{{backendURL}}/api/products/id"
+			},
+			"response": []
+		},
+		{
+			"name": "Get user by id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{token}}"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "{{backendURL}}/api/users/30e5f67c-b829-4546-8bb1-93ed31619a01"
+			},
+			"response": []
+		},
+		{
+			"name": "Create User [For Admin]",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{token}}"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"test@gmail.com\",\n    \"password\": \"password\",\n    \"name\": \"Test Testovich\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{backendURL}}/api/users"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{token}}"
+					}
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": "{{backendURL}}/api/users/8c3d54a1-508e-482f-bff1-d7fe1835c40b"
+			},
+			"response": []
+		},
+		{
+			"name": "Get new token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": "{{backendURL}}/api/auth/login/access-token"
+			},
+			"response": []
+		},
+		{
+			"name": "Logout",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": "{{backendURL}}/api/auth/logout"
+			},
+			"response": []
+		},
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"admin@gmail.com\",\n    \"password\": \"password\",\n    \"name\": \"Test Testovich\",\n    \"role\": \"ADMIN\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{backendURL}}/api/auth/register"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"var url = 'http://localhost:3000/api/auth/login'",
+					"var data = {",
+					"    \"email\": \"admin@gmail.com\",",
+					"    \"password\": \"password\"",
+					"}",
+					"pm.sendRequest({",
+					"    url: url,",
+					"    method: 'POST',",
+					"    header: { 'Content-Type': 'application/json'},",
+					"    body: {",
+					"        mode: 'raw',",
+					"        raw: JSON.stringify(data)",
+					"    }",
+					"},  function(err, response) {",
+					"    // Set the environment variable for token",
+					"    var response_json = response.json();",
+					"    var token = response_json.accessToken;",
+					"    pm.environment.set('token', token);",
+					"    console.log(token);",
+					"});",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "backendURL",
+			"value": "http://localhost:3000",
+			"type": "string"
+		}
+	]
+}
