@@ -1,4 +1,4 @@
-version: '4.0'
+version: '3.8'
 
 services:
   postgres:
@@ -35,7 +35,7 @@ services:
     build:
       dockerfile: Dockerfile
       context: .
-    env_file: "${ENV_FILE:-.env.example}"
+    env_file: "${ENV_FILE:-.env}"
     environment:
       DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-pgpass}@postgres:${POSTGRES_PORT:-5432}/${POSTGRES_DB:-idp}?schema=${POSTGRES_SCHEMA:-public}
     ports:
