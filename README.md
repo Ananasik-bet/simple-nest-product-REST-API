@@ -30,7 +30,7 @@
 
 ## 🎓 Requirements
 
-Task requirements can be found [here](requirements.txt)
+Task requirements can be found [here](requirenments.txt)
 
 ## ✅ Check it out: [Simple Nest Product REST API](https://simple-nest-product-rest-api.onrender.com/)
 
